@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/playerScroll"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<ListView
+    android:id="@+id/playerView"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:scrollbars="horizontal"
-    android:gravity="center"
-    >
+    android:gravity="center">
+</ListView>
 
     <Button
-        android:id="@+id/toAddPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goToAdd"
-        android:text="Add Player" />
-</ScrollView>
+    android:id="@+id/toAddPlayer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:onClick="goToAdd"
+    android:text="Add Player" />
+</android.support.v7.widget.LinearLayoutCompat>
