@@ -4,5 +4,13 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:scrollbars="horizontal"
+    android:gravity="center"
     >
-    </ScrollView>
+
+    <Button
+        android:id="@+id/toAddPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToAdd"
+        android:text="Add Player" />
+</ScrollView>
