@@ -27,7 +27,18 @@ public class AddActivity extends AppCompatActivity {
                 startActivityForResult(intent,0);
             }
         });
+
+        Button btnStore = (Button)findViewById(R.id.btnStore);
+
+        btnStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
+
 
 
     @Override
