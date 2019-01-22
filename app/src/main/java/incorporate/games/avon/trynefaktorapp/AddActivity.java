@@ -28,14 +28,8 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
-        Button btnStore = (Button)findViewById(R.id.btnStore);
 
-        btnStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
     }
 

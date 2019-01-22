@@ -12,9 +12,11 @@
 </ListView>
 
     <Button
-    android:id="@+id/toAddPlayer"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:onClick="goToAdd"
-    android:text="Add Player" />
+        android:id="@+id/toAddPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goToAdd"
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/black"
+        android:text="Add Player" />
 </android.support.v7.widget.LinearLayoutCompat>
