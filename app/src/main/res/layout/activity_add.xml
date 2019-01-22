@@ -38,9 +38,11 @@
         android:id="@+id/Save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Save"
         android:background="@android:color/holo_purple"
         android:textColor="@android:color/black"
-        android:text="Save" />
+
+        />
 
     <ImageView
         android:id="@+id/imageView"
