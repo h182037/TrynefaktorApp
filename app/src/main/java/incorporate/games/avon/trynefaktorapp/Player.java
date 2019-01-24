@@ -1,11 +1,15 @@
 package incorporate.games.avon.trynefaktorapp;
 
+import android.net.Uri;
+
+import java.net.URI;
+
 public class Player {
 
     private String name;
-    private String photo;
+    private Uri photo;
 
-    public Player(String name, String photo){
+    public Player(String name, Uri photo){
         this.name=name;
         this.photo=photo;
     }
@@ -14,13 +18,13 @@ public class Player {
         this.name = name;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Uri photo) {
         this.photo = photo;
     }
     public String getName(){
         return name;
     }
-    public String getPhoto(){
+    public Uri getPhoto(){
         return photo;
     }
 }

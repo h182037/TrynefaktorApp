@@ -24,6 +24,7 @@ public class AddActivity extends AppCompatActivity {
         EditText nameIN;
         String imagePath;
         String name;
+        Uri photoURI;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -55,13 +56,13 @@ public class AddActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
+                photoURI = FileProvider.getUriForFile(this,
                         "incorporate.games.avon.trynefaktorapp.android.fileprovider",
                         photoFile);
 
                 nameIN = (EditText) findViewById(R.id.nameInput);
                 name = nameIN.getText().toString();
-                Player player = new Player(name, photoURI.toString());
+                Player player = new Player(name, photoURI);
                 ((PlayerList) this.getApplication()).appendPlayer(player);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
