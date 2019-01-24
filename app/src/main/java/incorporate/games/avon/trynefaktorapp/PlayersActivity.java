@@ -12,23 +12,21 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlayersActivity extends AppCompatActivity {
 
     ListView playerListView;
-    ArrayAdapter<String> arrayAdapter;
+    PlayerAdapter arrayAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_players);
         playerListView = (ListView) findViewById(R.id.playerView);
-        final List<String> playerList = new ArrayList<String>();
-        playerList.add("Sondrus");
-        playerList.add("Snudre");
-        arrayAdapter = new ArrayAdapter<String>(
+        final List<Player> playerList = ((PlayerList) this.getApplication()).getList();
+        arrayAdapter = new PlayerAdapter(
                 this,
-                android.R.layout.simple_list_item_1,
                 playerList);
         playerListView.setAdapter(arrayAdapter);
         playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

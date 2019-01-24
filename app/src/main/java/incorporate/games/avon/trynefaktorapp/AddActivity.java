@@ -21,10 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
-        EditText name;
+        EditText nameIN;
         String imagePath;
-        ImageView imageView;
-        Bitmap bitmap;
+        String name;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -33,7 +32,6 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add);
 
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
-        imageView = (ImageView)findViewById(R.id.imageView);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,12 +41,6 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        bitmap = (Bitmap)data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
-    }
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -66,11 +58,17 @@ public class AddActivity extends AppCompatActivity {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "incorporate.games.avon.trynefaktorapp.android.fileprovider",
                         photoFile);
+
+                nameIN = (EditText) findViewById(R.id.nameInput);
+                name = nameIN.getText().toString();
+                Player player = new Player(name, photoURI.toString());
+                ((PlayerList) this.getApplication()).appendPlayer(player);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
+
 
         private File createImageFile() throws IOException {
         // Create an image file name

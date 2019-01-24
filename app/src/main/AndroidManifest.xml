@@ -3,6 +3,7 @@
     package="incorporate.games.avon.trynefaktorapp">
 
     <application
+        android:name=".PlayerList"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
