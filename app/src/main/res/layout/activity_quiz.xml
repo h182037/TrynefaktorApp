@@ -14,6 +14,7 @@
     >
     <TextView
         android:id="@+id/header"
+        android:layout_margin="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quiz"
@@ -34,18 +35,34 @@
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:gravity="center"
+        android:layout_margin="10dp"
         />
+
     <EditText
         android:id="@+id/guessInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22sp"
+        android:maxLines="1"
+        android:inputType="textPersonName"
         />
     <Button
         android:onClick="testAnswerMethod"
         android:id="@+id/testAnswer"
+        android:layout_margin="5dp"
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Test Answer"
         />
+    <Button
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/quitBtn"
+        android:text="Quit Quiz"
+        android:onClick="goToMain"
+        android:layout_margin="5dp"/>
 </LinearLayout>

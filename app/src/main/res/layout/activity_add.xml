@@ -38,12 +38,33 @@
 
     <Button
         android:id="@+id/btnCamera"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@android:color/holo_purple"
         android:textColor="@android:color/black"
         android:text="Add picture"
+        android:layout_margin="5dp"
+        />
+    <Button
+        android:id="@+id/goPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Players"
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/black"
+        android:onClick="goToPlayers"
+        android:layout_margin="5dp"
+
         />
 
+    <Button
+        android:id="@+id/goQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_purple"
+        android:textColor="@android:color/black"
+        android:text="Quiz"
+        android:layout_margin="5dp"
+        android:onClick="goToQuiz"
+        />
 </LinearLayout>

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,12 +33,17 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        nameIN = (EditText) findViewById(R.id.nameInput);
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                if(nameIN.getText().toString().equals("")){
+                    Toast.makeText(AddActivity.this, "Please input name, thank you.", Toast.LENGTH_SHORT).show();
+                }else {
+                    dispatchTakePictureIntent();
+                }
             }
         });
     }
@@ -60,14 +66,24 @@ public class AddActivity extends AppCompatActivity {
                         "incorporate.games.avon.trynefaktorapp.android.fileprovider",
                         photoFile);
 
-                nameIN = (EditText) findViewById(R.id.nameInput);
                 name = nameIN.getText().toString();
                 Player player = new Player(name, photoURI);
                 ((PlayerList) this.getApplication()).appendPlayer(player);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+
             }
         }
+    }
+
+    public void goToQuiz(View v){
+        Intent intent = new Intent(AddActivity.this,QuizActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToPlayers(View v){
+        Intent intent = new Intent(AddActivity.this,PlayersActivity.class);
+        startActivity(intent);
     }
 
 

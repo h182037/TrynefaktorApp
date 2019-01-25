@@ -1,5 +1,6 @@
 package incorporate.games.avon.trynefaktorapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,11 @@ public class QuizActivity extends AppCompatActivity {
         playerList = ((PlayerList) this.getApplication()).getList();
 
         img.setImageURI(playerList.get(i).getPhoto());
+    }
+
+    public void goToMain(View v){
+        Intent returnIntent = new Intent(QuizActivity.this, MainActivity.class);
+        startActivity(returnIntent);
     }
 
     public void testAnswerMethod(View v){

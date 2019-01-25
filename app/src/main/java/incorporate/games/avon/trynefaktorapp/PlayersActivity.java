@@ -48,6 +48,10 @@ public class PlayersActivity extends AppCompatActivity {
 
     }
 
+    public void goToQuiz(View v){
+        Intent intent = new Intent(PlayersActivity.this,QuizActivity.class);
+        startActivity(intent);
+    }
 
     public void goToAdd(View v){
         Intent intent = new Intent(PlayersActivity.this, AddActivity.class);
