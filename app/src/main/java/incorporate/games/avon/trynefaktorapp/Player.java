@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import java.net.URI;
 
+//dataclass for our players
 public class Player {
 
     private String name;

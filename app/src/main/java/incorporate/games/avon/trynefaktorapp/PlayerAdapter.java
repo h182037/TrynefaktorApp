@@ -15,6 +15,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//custom adapter for our view management
 public class PlayerAdapter extends ArrayAdapter<Player> {
     private Context mContext;
     private List<Player> playerList = new ArrayList<>();

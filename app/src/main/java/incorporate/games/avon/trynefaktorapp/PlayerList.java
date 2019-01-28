@@ -5,6 +5,8 @@ import android.app.Application;
 import java.util.LinkedList;
 import java.util.List;
 
+
+//our database
 public class PlayerList extends Application {
 
     private List<Player> list;

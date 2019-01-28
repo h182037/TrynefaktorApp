@@ -60,7 +60,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
-
+    // result of getting picture from gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -85,7 +85,7 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
-
+    //dispatching image capture
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -123,7 +123,7 @@ public class AddActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    //creating file for the image capture to save in
         private File createImageFile() throws IOException {
         // Create an image file name
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

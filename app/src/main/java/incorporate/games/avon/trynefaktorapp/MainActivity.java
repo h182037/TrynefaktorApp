@@ -15,14 +15,15 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     List<Player> database;
+    //main
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //get playerlist
         database = ((PlayerList) this.getApplication()).getList();
-        if(database.isEmpty()){
-            Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
-        }
+
+        //initializing list with lil bub
         Uri uri1 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.lil);
         Uri uri2 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.bub);
         Player p1 = new Player("lil", uri1);
@@ -32,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         database.add(p1);
         database.add(p2);
 
+        //check if empty, and make toast
+        if(database.isEmpty()){
+            Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void goToPlayers(View v){

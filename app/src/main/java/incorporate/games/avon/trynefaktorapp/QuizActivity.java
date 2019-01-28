@@ -41,7 +41,7 @@ public class QuizActivity extends AppCompatActivity {
 
         score.setText("Score: "+correct+"/"+tries);
         playerList = ((PlayerList) this.getApplication()).getList();
-
+        //returning to main activity if the list is empty
         if(playerList.isEmpty()){
             Intent intent = new Intent(QuizActivity.this, MainActivity.class);
             startActivity(intent);
@@ -68,7 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         Intent returnIntent = new Intent(QuizActivity.this, MainActivity.class);
         startActivity(returnIntent);
     }
-
+    //setting score and letting user know if the guess was correct or not.
     public void testAnswerMethod(View v){
         guessText = guess.getText().toString();
         tries++;

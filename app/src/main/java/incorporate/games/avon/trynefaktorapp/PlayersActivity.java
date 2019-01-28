@@ -20,6 +20,8 @@ public class PlayersActivity extends AppCompatActivity {
     ListView playerListView;
     PlayerAdapter arrayAdapter;
     @Override
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_players);
@@ -30,6 +32,7 @@ public class PlayersActivity extends AppCompatActivity {
                 playerList);
         playerListView.setAdapter(arrayAdapter);
         playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            // Making items removable by clicken them in the view
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 AlertDialog.Builder adb = new AlertDialog.Builder(PlayersActivity.this);
@@ -39,6 +42,7 @@ public class PlayersActivity extends AppCompatActivity {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        //restraining from deleting images from your beloved gallery.
                         if(!playerList.get(positionToRemove).getFromGallery()){
                             getApplicationContext().getContentResolver().delete(playerList.get(positionToRemove).getPhoto(),null,null);
                         }
