@@ -42,6 +42,10 @@ public class QuizActivity extends AppCompatActivity {
         score.setText("Score: "+correct+"/"+tries);
         playerList = ((PlayerList) this.getApplication()).getList();
 
+        if(playerList.isEmpty()){
+            Intent intent = new Intent(QuizActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         img.setImageURI(playerList.get(i).getPhoto());
 
         RL.setOnClickListener(new View.OnClickListener() {
