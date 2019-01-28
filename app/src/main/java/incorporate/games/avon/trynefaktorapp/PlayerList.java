@@ -1,6 +1,7 @@
 package incorporate.games.avon.trynefaktorapp;
 
 import android.app.Application;
+import android.net.Uri;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,18 @@ public class PlayerList extends Application {
     private List<Player> list;
 
     public PlayerList(){
+
         list = new LinkedList<Player>();
+        //initializing list with lil bub
+        Uri uri1 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.lil);
+        Uri uri2 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.bub);
+        Player p1 = new Player("lil", uri1);
+        p1.setFromGallery(true);
+        Player p2 = new Player("bub", uri2);
+        p2.setFromGallery(true);
+        list.add(p1);
+        list.add(p2);
+
     }
 
     public void appendPlayer(Player p){

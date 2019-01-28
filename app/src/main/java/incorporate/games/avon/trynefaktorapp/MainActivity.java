@@ -23,15 +23,6 @@ public class MainActivity extends AppCompatActivity {
         //get playerlist
         database = ((PlayerList) this.getApplication()).getList();
 
-        //initializing list with lil bub
-        Uri uri1 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.lil);
-        Uri uri2 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.bub);
-        Player p1 = new Player("lil", uri1);
-        p1.setFromGallery(true);
-        Player p2 = new Player("bub", uri2);
-        p2.setFromGallery(true);
-        database.add(p1);
-        database.add(p2);
 
         //check if empty, and make toast
         if(database.isEmpty()){

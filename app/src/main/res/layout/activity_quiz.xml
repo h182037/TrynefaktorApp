@@ -11,26 +11,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-
+    android:gravity="center"
     >
-    <TextView
-        android:id="@+id/header"
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quiz"
-        android:textSize="28sp"
-        />
     <TextView
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="28sp"
+        android:textSize="22sp"
         android:layout_margin="5dp"
         />
     <Button
         android:id="@+id/rotLeft"
-        android:layout_margin="5dp"
+        android:layout_margin="3dp"
         android:background="@android:color/holo_purple"
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
@@ -39,7 +31,7 @@
         />
     <Button
         android:id="@+id/rotRight"
-        android:layout_margin="5dp"
+        android:layout_margin="3dp"
         android:background="@android:color/holo_purple"
         android:textColor="@android:color/black"
         android:layout_width="wrap_content"
