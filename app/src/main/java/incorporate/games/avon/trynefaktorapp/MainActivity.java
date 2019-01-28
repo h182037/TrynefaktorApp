@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         database = ((PlayerList) this.getApplication()).getList();
         if(database.isEmpty()){
             Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
-
         }
 
     }

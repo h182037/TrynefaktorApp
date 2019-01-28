@@ -39,6 +39,9 @@ public class PlayersActivity extends AppCompatActivity {
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        if(!playerList.get(positionToRemove).getFromGallery()){
+                            getApplicationContext().getContentResolver().delete(playerList.get(positionToRemove).getPhoto(),null,null);
+                        }
                         playerList.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
                     }});

@@ -2,6 +2,7 @@ package incorporate.games.avon.trynefaktorapp;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
@@ -26,6 +27,7 @@ public class AddActivity extends AppCompatActivity {
         String imagePath;
         String name;
         Uri photoURI;
+        Button getPic;
     static final int REQUEST_TAKE_PHOTO = 1;
 
     @Override
@@ -33,8 +35,19 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        getPic = (Button) findViewById(R.id.btnGallery);
         nameIN = (EditText) findViewById(R.id.nameInput);
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
+
+        getPic.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view){
+                Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 3);
+
+            }
+        });
 
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +59,30 @@ public class AddActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 3 && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+            name = nameIN.getText().toString();
+            Player player = new Player(name, selectedImage);
+            player.setFromGallery(true);
+            ((PlayerList) this.getApplication()).appendPlayer(player);
+        }else{
+            Toast.makeText(AddActivity.this, "Please choose a picture", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 

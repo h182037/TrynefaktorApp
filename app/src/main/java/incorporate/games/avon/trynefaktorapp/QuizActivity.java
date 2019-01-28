@@ -15,7 +15,8 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
 
     ImageView img;
-    Button test;
+    Button RL;
+    Button RR;
     EditText guess;
     String guessText;
     List<Player> playerList;
@@ -31,14 +32,32 @@ public class QuizActivity extends AppCompatActivity {
         correct = 0;
         tries = 0;
         i = 0;
+        RL = (Button) findViewById(R.id.rotLeft);
+        RR = (Button) findViewById(R.id.rotRight);
         score = (TextView) findViewById(R.id.scoreText);
         img = (ImageView) findViewById(R.id.playerImage);
         guess = (EditText) findViewById(R.id.guessInput);
+
 
         score.setText("Score: "+correct+"/"+tries);
         playerList = ((PlayerList) this.getApplication()).getList();
 
         img.setImageURI(playerList.get(i).getPhoto());
+
+        RL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img.setRotation(img.getRotation()-90);
+            }
+        });
+        RR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img.setRotation(img.getRotation()+90);
+            }
+        });
+
+
     }
 
     public void goToMain(View v){
