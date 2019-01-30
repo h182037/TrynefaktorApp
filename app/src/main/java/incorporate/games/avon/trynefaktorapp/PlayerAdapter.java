@@ -1,7 +1,7 @@
 package incorporate.games.avon.trynefaktorapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Movie;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +20,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
     private Context mContext;
     private List<Player> playerList = new ArrayList<>();
 
-    public PlayerAdapter(@NonNull Context context, @LayoutRes List<Player> list) {
+    public PlayerAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes List<Player> list) {
         super(context, 0 , list);
         mContext = context;
         playerList = list;

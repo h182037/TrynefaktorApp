@@ -43,9 +43,12 @@ public class AddActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view){
-                Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 3);
-
+                if(nameIN.getText().toString().equals("")){
+                    Toast.makeText(AddActivity.this, "Please input name, thank you.", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(i, 3);
+                }
             }
         });
 
