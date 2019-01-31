@@ -18,6 +18,7 @@ import android.widget.Toast;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class MainActivity extends AppCompatActivity {
 
     List<Player> database;
