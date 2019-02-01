@@ -1,12 +1,20 @@
 package incorporate.games.avon.trynefaktorapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +32,61 @@ public class QuizActivity extends AppCompatActivity {
     int correct;
     int tries;
     TextView score;
+
+    private void setOwnerName(){
+
+        AlertDialog.Builder adb = new AlertDialog.Builder(QuizActivity.this);
+        adb.setTitle("Owner");
+        adb.setMessage("Enter the name of the owner of this phone");
+
+        final EditText input = new EditText(QuizActivity.this);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+
+        input.setLayoutParams(lp);
+        adb.setView(input);
+        adb.setNegativeButton("Cancel", null);
+        adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences.Editor editor;
+
+                editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+                editor.putString("name", input.getText().toString());
+                editor.putInt("idName", 22);
+                editor.apply();
+            }});
+        adb.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.tool_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()) {
+            case R.id.pref:
+                setOwnerName();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(myToolbar);
+
 
         correct = 0;
         tries = 0;
