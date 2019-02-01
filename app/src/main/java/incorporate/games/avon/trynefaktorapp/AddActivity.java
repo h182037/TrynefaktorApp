@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -48,6 +50,7 @@ public class AddActivity extends AppCompatActivity {
         String name;
         Uri photoURI;
         Button getPic;
+        ImageView pic;
         static final int REQUEST_TAKE_PHOTO = 1;
 
     private void setOwnerName(){
@@ -104,7 +107,7 @@ public class AddActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(myToolbar);
 
-
+        pic =(ImageView) findViewById(R.id.thisOne);
         getPic = (Button) findViewById(R.id.btnGallery);
         nameIN = (EditText) findViewById(R.id.nameInput);
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
@@ -153,15 +156,33 @@ public class AddActivity extends AppCompatActivity {
             ((PlayerList) this.getApplication()).appendPlayer(player);
             uploadPlayer(player, selectedImage);
         }
-        if(requestCode== 1 && resultCode == AddActivity.RESULT_OK){
-            Uri selectedImage = data.getData();
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == AddActivity.RESULT_OK){
 
-            name = nameIN.getText().toString();
-            Player player = new Player(name, selectedImage);
-            player.setFromGallery(true);
+            pic.setImageURI(photoURI);
+            final Button myButton = new Button(this);
+            myButton.setText("Confirm");
 
-            ((PlayerList) this.getApplication()).appendPlayer(player);
-            uploadPlayer(player, selectedImage);
+
+
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    name = nameIN.getText().toString();
+
+                    Player player = new Player(name, photoURI);
+                    player.setFromGallery(true);
+
+                    ((PlayerList) getApplication()).appendPlayer(player);
+
+                    uploadPlayer(player, photoURI);
+                    myButton.setVisibility(View.GONE);
+                }
+            });
+            LinearLayout ll = (LinearLayout)findViewById(R.id.linLay);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton, lp);
+
+
 
         }
 
