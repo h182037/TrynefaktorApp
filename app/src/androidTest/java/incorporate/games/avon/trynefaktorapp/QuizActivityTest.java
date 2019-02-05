@@ -23,7 +23,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
-public class QuizActivityTest extends AppCompatActivity {
+public class QuizActivityTest  {
 
     List<Player> playerList;
 
@@ -31,9 +31,10 @@ public class QuizActivityTest extends AppCompatActivity {
     public ActivityTestRule<QuizActivity> mActivityTestRule = new ActivityTestRule<QuizActivity>(QuizActivity.class);
 
     private String guess = "lil";
+    private String score1 = "Score: 1/1";
     @Before
     public void setUp() throws Exception {
-        playerList = ((PlayerList) getApplication()).getList();
+        //playerList = ((PlayerList) getApplication()).getList();
     }
     @Test
     public void testUserInput(){
@@ -44,7 +45,8 @@ public class QuizActivityTest extends AppCompatActivity {
         //perform button click
         Espresso.onView(withId(R.id.testAnswer)).perform(click());
         //checking the text
-        //Espresso.onData(playerList.get(0).getName()).check(matches(withText(guess)));
+        Espresso.onView(withId(R.id.scoreText)).check(matches(withText(score1)));
+
     }
 
     @After

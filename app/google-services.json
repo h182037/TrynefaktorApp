@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "139704107698",
+    "firebase_url": "https://trynefaktor-735c1.firebaseio.com",
+    "project_id": "trynefaktor-735c1",
+    "storage_bucket": "trynefaktor-735c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139704107698:android:0b3f021ba45638d4",
+        "android_client_info": {
+          "package_name": "incorporate.games.avon.trynefaktorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139704107698-j8t408r5ckjoongovamfshahf9qbd5jt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "incorporate.games.avon.trynefaktorapp",
+            "certificate_hash": "a53616376afd13241c2252c89f6126f77c50aac7"
+          }
+        },
+        {
+          "client_id": "139704107698-b5jghl75hs06oneamvttmrd5bkep33lq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvhVWEHB7xMkLvxhriY03UU7VJfjLQDXY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139704107698-b5jghl75hs06oneamvttmrd5bkep33lq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
