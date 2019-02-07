@@ -16,15 +16,17 @@ public class PlayerList extends Application {
 
         list = new LinkedList<Player>();
         //initializing list with lil bub
+
+    }
+    public void init(){
         Uri uri1 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.lil);
         Uri uri2 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.bub);
-        Player p1 = new Player("lil", uri1);
+        Player p1 = new Player("lil", uri1.toString());
         p1.setFromGallery(true);
-        Player p2 = new Player("bub", uri2);
+        Player p2 = new Player("bub", uri2.toString());
         p2.setFromGallery(true);
         list.add(p1);
         list.add(p2);
-
     }
 
     public void appendPlayer(Player p){
@@ -33,7 +35,9 @@ public class PlayerList extends Application {
     public void removePlayer(Player p){
         list.remove(p);
     }
-
+    public void setList(List<Player> l){
+        list = l;
+    }
     public List<Player> getList(){
         return list;
     }

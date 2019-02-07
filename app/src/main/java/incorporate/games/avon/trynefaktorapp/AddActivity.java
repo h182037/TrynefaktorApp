@@ -1,6 +1,5 @@
 package incorporate.games.avon.trynefaktorapp;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,27 +18,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectStreamException;
-import java.lang.ref.Reference;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
+import static java.lang.reflect.Modifier.TRANSIENT;
 
 public class AddActivity extends AppCompatActivity {
         EditText nameIN;
@@ -48,8 +41,9 @@ public class AddActivity extends AppCompatActivity {
         String name;
         Uri photoURI;
         Button getPic;
+        SharedPreferences prefs;
+        ImageView pic;
         static final int REQUEST_TAKE_PHOTO = 1;
-
     private void setOwnerName(){
 
         AlertDialog.Builder adb = new AlertDialog.Builder(AddActivity.this);
@@ -104,7 +98,7 @@ public class AddActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(myToolbar);
 
-
+        pic =(ImageView) findViewById(R.id.thisOne);
         getPic = (Button) findViewById(R.id.btnGallery);
         nameIN = (EditText) findViewById(R.id.nameInput);
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
@@ -133,12 +127,13 @@ public class AddActivity extends AppCompatActivity {
             }
         });
     }
+
     // result of getting picture from gallery
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3 && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
+            final Uri selectedImage = data.getData();
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
@@ -146,65 +141,73 @@ public class AddActivity extends AppCompatActivity {
             cursor.moveToFirst();
 
             cursor.close();
-            name = nameIN.getText().toString();
-            Player player = new Player(name, selectedImage);
-            player.setFromGallery(true);
+            pic.setImageURI(selectedImage);
+            final Button myButton = new Button(this);
+            myButton.setText("Confirm");
 
-            ((PlayerList) this.getApplication()).appendPlayer(player);
-            uploadPlayer(player, selectedImage);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    name = nameIN.getText().toString();
+
+                    Player player = new Player(name, selectedImage.toString());
+                    player.setFromGallery(true);
+
+                    prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    ((PlayerList) getApplication()).appendPlayer(player);
+                    String jsonString = gson.toJson(((PlayerList) getApplication()).getList());
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("offline", jsonString);
+                    editor.commit();
+
+                    nameIN.setText("");
+                    myButton.setVisibility(View.GONE);
+                }
+            });
+            LinearLayout ll = (LinearLayout)findViewById(R.id.linLay);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton, lp);
         }
-        if(requestCode== 1 && resultCode == AddActivity.RESULT_OK){
-            Uri selectedImage = data.getData();
+        if(requestCode == REQUEST_TAKE_PHOTO && resultCode == AddActivity.RESULT_OK){
 
-            name = nameIN.getText().toString();
-            Player player = new Player(name, selectedImage);
-            player.setFromGallery(true);
+            pic.setImageURI(photoURI);
+            final Button myButton = new Button(this);
+            myButton.setText("Confirm");
 
-            ((PlayerList) this.getApplication()).appendPlayer(player);
-            uploadPlayer(player, selectedImage);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    name = nameIN.getText().toString();
 
+                    Player player = new Player(name, photoURI.toString());
+                    player.setFromGallery(true);
+
+                    prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
+                    Gson gson = new Gson();
+
+                    ((PlayerList) getApplication()).appendPlayer(player);
+                    String jsonString = gson.toJson(((PlayerList) getApplication()).getList());
+
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("offline", jsonString);
+                    editor.commit();
+
+                    nameIN.setText("");
+                    myButton.setVisibility(View.GONE);
+                }
+            });
+            LinearLayout ll = (LinearLayout)findViewById(R.id.linLay);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton, lp);
         }
-
         else{
             Toast.makeText(AddActivity.this, "Please choose a picture", Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void uploadPlayer(Player p, Uri filePath){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference =  storage.getReference();
-        if(filePath != null)
-        {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
-                            Toast.makeText(AddActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(AddActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
-                        }
-                    });
-        }
-    }
 
     //dispatching image capture
     private void dispatchTakePictureIntent() {
@@ -224,9 +227,6 @@ public class AddActivity extends AppCompatActivity {
                         "incorporate.games.avon.trynefaktorapp.android.fileprovider",
                         photoFile);
 
-                name = nameIN.getText().toString();
-                Player player = new Player(name, photoURI);
-                ((PlayerList) this.getApplication()).appendPlayer(player);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }

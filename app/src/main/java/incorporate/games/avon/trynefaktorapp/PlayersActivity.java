@@ -3,6 +3,7 @@ package incorporate.games.avon.trynefaktorapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,8 +20,9 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class PlayersActivity extends AppCompatActivity {
@@ -97,10 +99,20 @@ public class PlayersActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //restraining from deleting images from your beloved gallery.
                         if(!playerList.get(positionToRemove).getFromGallery()){
-                            getApplicationContext().getContentResolver().delete(playerList.get(positionToRemove).getPhoto(),null,null);
+                            getApplicationContext().getContentResolver().delete(Uri.parse(playerList.get(positionToRemove).getPhoto()),null,null);
                         }
+
                         playerList.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
+                        Gson gson = new Gson();
+                        SharedPreferences prefs = getSharedPreferences("MyPrefsFile4", MODE_PRIVATE);
+                        ((PlayerList) getApplication()).setList(playerList);
+                        String jsonString2 = gson.toJson(((PlayerList) getApplication()).getList());
+
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("offline", jsonString2);
+                        editor.commit();
+
                     }});
                 adb.show();
             }
