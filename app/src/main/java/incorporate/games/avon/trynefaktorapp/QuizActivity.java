@@ -3,6 +3,7 @@ package incorporate.games.avon.trynefaktorapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -99,13 +100,16 @@ public class QuizActivity extends AppCompatActivity {
 
 
         score.setText("Score: "+correct+"/"+tries);
+
+
+
         playerList = ((PlayerList) this.getApplication()).getList();
         //returning to main activity if the list is empty
         if(playerList.isEmpty()){
             Intent intent = new Intent(QuizActivity.this, MainActivity.class);
             startActivity(intent);
         }
-        img.setImageURI(playerList.get(i).getPhoto());
+        img.setImageURI(Uri.parse(playerList.get(i).getPhoto()));
 
         RL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +148,7 @@ public class QuizActivity extends AppCompatActivity {
             i++;
         }
 
-        img.setImageURI(playerList.get(i).getPhoto());
+        img.setImageURI(Uri.parse(playerList.get(i).getPhoto()));
 
     }
 }

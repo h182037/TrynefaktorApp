@@ -2,7 +2,6 @@ package incorporate.games.avon.trynefaktorapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,12 +16,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    List<Player> database;
+    PlayerList database;
     SharedPreferences prefs;
     TextView owner;
 
@@ -45,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 SharedPreferences.Editor editor;
 
-                editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+                editor = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE).edit();
                 editor.putString("name", input.getText().toString());
                 editor.putInt("idName", 22);
                 editor.apply();
@@ -80,18 +83,34 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(myToolbar);
 
-        prefs = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
         if(prefs.getString("name", "Mr. NoName").equals("Mr. NoName")){
             setOwnerName();
         }
         owner = (TextView) findViewById(R.id.owner);
         owner.setText("Owner: "+prefs.getString("name","Mr. NoName"));
 
+        Gson gson = new Gson();
         //get playerlist
-        database = ((PlayerList) this.getApplication()).getList();
+        String jsonString = prefs.getString("offline","");
+        if(jsonString.equals("")){
+            ((PlayerList) this.getApplication()).init();
+            String jsonString2 = gson.toJson(((PlayerList) getApplication()).getList());
 
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("offline", jsonString2);
+            editor.commit();
+
+        }else {
+
+
+            Type listType = new TypeToken<List<Player>>(){}.getType();
+            List<Player> tmp = gson.fromJson(jsonString, listType);
+            ((PlayerList) this.getApplication()).setList(tmp);
+        }
+        database = ((PlayerList) this.getApplication());
         //check if empty, and make toast
-        if(database.isEmpty()){
+        if(database.getList().isEmpty()){
             Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
         }
     }

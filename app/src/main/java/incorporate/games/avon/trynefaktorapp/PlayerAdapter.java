@@ -18,7 +18,7 @@ import java.util.List;
 //custom adapter for our view management
 public class PlayerAdapter extends ArrayAdapter<Player> {
     private Context mContext;
-    private List<Player> playerList = new ArrayList<>();
+    private List<Player> playerList;
 
     public PlayerAdapter(@NonNull Context context, @SuppressLint("SupportAnnotationUsage") @LayoutRes List<Player> list) {
         super(context, 0 , list);
@@ -33,7 +33,7 @@ public class PlayerAdapter extends ArrayAdapter<Player> {
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
 
-        Player currentPlayer = playerList.get(position);
+        Player currentPlayer = new Player(playerList.get(position).getName(), playerList.get(position).getPhoto());
 
         TextView name = (TextView) listItem.findViewById(R.id.textView_name);
         name.setText(currentPlayer.getName());
