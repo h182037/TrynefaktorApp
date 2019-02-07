@@ -68,6 +68,7 @@ public class AddActivity extends AppCompatActivity {
                 editor.putInt("idName", 22);
                 editor.apply();
             }});
+        input.setHint("name");
         adb.show();
     }
 
