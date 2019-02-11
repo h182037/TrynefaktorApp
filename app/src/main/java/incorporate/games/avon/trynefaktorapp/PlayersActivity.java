@@ -105,7 +105,7 @@ public class PlayersActivity extends AppCompatActivity {
                         playerList.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
                         Gson gson = new Gson();
-                        SharedPreferences prefs = getSharedPreferences("MyPrefsFile4", MODE_PRIVATE);
+                        SharedPreferences prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
                         ((PlayerList) getApplication()).setList(playerList);
                         String jsonString2 = gson.toJson(((PlayerList) getApplication()).getList());
 
