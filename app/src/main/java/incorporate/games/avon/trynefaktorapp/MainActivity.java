@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
+
         );
 
         input.setLayoutParams(lp);
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 owner = (TextView) findViewById(R.id.owner);
                 owner.setText("Owner: "+prefs.getString("name","Mr. NoName"));
             }});
+        input.setHint("name");
         adb.show();
     }
 
