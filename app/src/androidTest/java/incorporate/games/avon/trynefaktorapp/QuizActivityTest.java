@@ -24,9 +24,6 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class QuizActivityTest  {
-
-    List<Player> playerList;
-
     @Rule
     public ActivityTestRule<QuizActivity> mActivityTestRule = new ActivityTestRule<QuizActivity>(QuizActivity.class);
 
@@ -38,7 +35,7 @@ public class QuizActivityTest  {
         //playerList = ((PlayerList) getApplication()).getList();
     }
     @Test
-    public void testUserInput(){
+    public void testQuizInput(){
         //input some text in the edit text
         Espresso.onView(withId(R.id.guessInput)).perform(typeText(guess));
         //close soft keyboard

@@ -31,7 +31,7 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule =new ActivityTestRule<MainActivity>(MainActivity.class);
 
     private String owner1 = "sindre";
-    private String owner2 = "Owner: sindre";
+    private String owner2 = "Owner: Sindre";
 
     @Before
     public void setUp() throws Exception {
