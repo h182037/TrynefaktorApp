@@ -14,7 +14,7 @@ public class PlayerList extends Application {
 
     public PlayerList(){
 
-        list = new LinkedList<Player>();
+        list = new LinkedList<>();
         //initializing list with lil bub
 
     }

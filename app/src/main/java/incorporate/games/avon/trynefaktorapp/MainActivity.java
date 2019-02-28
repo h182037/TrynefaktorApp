@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("name", input.getText().toString());
                 editor.putInt("idName", 22);
                 editor.apply();
-                owner = (TextView) findViewById(R.id.owner);
+                owner = findViewById(R.id.owner);
                 owner.setText("Owner: "+prefs.getString("name","Mr. NoName"));
             }});
         input.setHint("name");
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("offline", jsonString2);
-            editor.commit();
+            editor.apply();
 
         }else {
 

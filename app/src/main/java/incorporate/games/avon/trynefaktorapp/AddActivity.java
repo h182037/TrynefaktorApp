@@ -177,7 +177,7 @@ public class AddActivity extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString("offline", jsonString);
-                editor.commit();
+                editor.apply();
 
                 nameIN.setText("");
                 myButton.setVisibility(View.GONE);

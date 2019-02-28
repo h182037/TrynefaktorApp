@@ -25,14 +25,14 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class QuizActivityTest  {
     @Rule
-    public ActivityTestRule<QuizActivity> mActivityTestRule = new ActivityTestRule<QuizActivity>(QuizActivity.class);
+    public ActivityTestRule<QuizActivity> mActivityTestRule = new ActivityTestRule<>(QuizActivity.class);
 
     private String guess = "lil";
     private String score1 = "Score: 1/1";
     private String score2 = "Score: 1/2";
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
 
     }
     @Test
@@ -52,6 +52,6 @@ public class QuizActivityTest  {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown(){
     }
 }
