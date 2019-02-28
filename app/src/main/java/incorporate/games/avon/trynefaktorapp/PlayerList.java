@@ -25,8 +25,8 @@ public class PlayerList extends Application {
         p1.setFromGallery(true);
         Player p2 = new Player("bub", uri2.toString());
         p2.setFromGallery(true);
-        list.add(p1);
-        list.add(p2);
+        appendPlayer(p1);
+        appendPlayer(p2);
     }
 
     public void appendPlayer(Player p){

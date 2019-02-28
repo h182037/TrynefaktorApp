@@ -111,12 +111,15 @@ public class MainActivity extends AppCompatActivity {
             List<Player> tmp = gson.fromJson(jsonString, listType);
             ((PlayerList) this.getApplication()).setList(tmp);
         }
-        database = ((PlayerList) this.getApplication());
+
+
+    database = ((PlayerList) this.getApplication());
         //check if empty, and make toast
         if(database.getList().isEmpty()){
             Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public void goToPlayers(View v){
         Intent intent = new Intent(MainActivity.this,PlayersActivity.class);

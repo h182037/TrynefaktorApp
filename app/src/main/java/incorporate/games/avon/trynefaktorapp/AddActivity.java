@@ -134,79 +134,58 @@ public class AddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 3 && resultCode == RESULT_OK && null != data) {
+
             final Uri selectedImage = data.getData();
+
             String[] filePathColumn = { MediaStore.Images.Media.DATA };
 
             Cursor cursor = getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
+
             cursor.moveToFirst();
-
             cursor.close();
-            pic.setImageURI(selectedImage);
-            final Button myButton = new Button(this);
-            myButton.setText("Confirm");
 
-            myButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    name = nameIN.getText().toString();
 
-                    Player player = new Player(name, selectedImage.toString());
-                    player.setFromGallery(true);
-
-                    prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
-                    Gson gson = new Gson();
-                    ((PlayerList) getApplication()).appendPlayer(player);
-                    String jsonString = gson.toJson(((PlayerList) getApplication()).getList());
-
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("offline", jsonString);
-                    editor.commit();
-
-                    nameIN.setText("");
-                    myButton.setVisibility(View.GONE);
-                }
-            });
-            LinearLayout ll = (LinearLayout)findViewById(R.id.linLay);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
+            confirmPicture(selectedImage);
         }
         if(requestCode == REQUEST_TAKE_PHOTO && resultCode == AddActivity.RESULT_OK){
-
-            pic.setImageURI(photoURI);
-            final Button myButton = new Button(this);
-            myButton.setText("Confirm");
-
-            myButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    name = nameIN.getText().toString();
-
-                    Player player = new Player(name, photoURI.toString());
-                    player.setFromGallery(true);
-
-                    prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
-                    Gson gson = new Gson();
-
-                    ((PlayerList) getApplication()).appendPlayer(player);
-                    String jsonString = gson.toJson(((PlayerList) getApplication()).getList());
-
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("offline", jsonString);
-                    editor.commit();
-
-                    nameIN.setText("");
-                    myButton.setVisibility(View.GONE);
-                }
-            });
-            LinearLayout ll = (LinearLayout)findViewById(R.id.linLay);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
+            confirmPicture(photoURI);
         }
         else{
             Toast.makeText(AddActivity.this, "Please choose a picture", Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+    private void confirmPicture(final Uri selectedImage) {
+        pic.setImageURI(selectedImage);
+        final Button myButton = new Button(this);
+        myButton.setText("Confirm");
+
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name = nameIN.getText().toString();
+
+                Player player = new Player(name, selectedImage.toString());
+                player.setFromGallery(true);
+
+                prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
+                Gson gson = new Gson();
+                ((PlayerList) getApplication()).appendPlayer(player);
+                String jsonString = gson.toJson(((PlayerList) getApplication()).getList());
+
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString("offline", jsonString);
+                editor.commit();
+
+                nameIN.setText("");
+                myButton.setVisibility(View.GONE);
+            }
+        });
+        LinearLayout ll = (LinearLayout) findViewById(R.id.linLay);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.addView(myButton, lp);
     }
 
 
