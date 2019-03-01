@@ -101,7 +101,6 @@ public class PlayersActivity extends AppCompatActivity {
                         if(!playerList.get(positionToRemove).getFromGallery()){
                             getApplicationContext().getContentResolver().delete(Uri.parse(playerList.get(positionToRemove).getPhoto()),null,null);
                         }
-
                         playerList.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
                         Gson gson = new Gson();
@@ -111,8 +110,7 @@ public class PlayersActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("offline", jsonString2);
-                        editor.commit();
-
+                        editor.apply();
                     }});
                 adb.show();
             }

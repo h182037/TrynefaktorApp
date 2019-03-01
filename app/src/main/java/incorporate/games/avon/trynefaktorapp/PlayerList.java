@@ -13,11 +13,10 @@ public class PlayerList extends Application {
     private List<Player> list;
 
     public PlayerList(){
-
         list = new LinkedList<>();
-        //initializing list with lil bub
-
     }
+
+    //initializing list with lil bub
     public void init(){
         Uri uri1 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.lil);
         Uri uri2 = Uri.parse("android.resource://incorporate.games.avon.trynefaktorapp/"+R.drawable.bub);

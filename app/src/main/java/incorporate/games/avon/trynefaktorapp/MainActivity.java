@@ -23,7 +23,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
-
 public class MainActivity extends AppCompatActivity {
 
     PlayerList database;
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setOwnerName(){
 
-        AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
+        final AlertDialog.Builder adb = new AlertDialog.Builder(MainActivity.this);
         adb.setTitle("Owner");
         adb.setMessage("Enter the name of the owner of this phone");
 
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
-
         );
 
         input.setLayoutParams(lp);
@@ -48,14 +46,19 @@ public class MainActivity extends AppCompatActivity {
         adb.setNegativeButton("Cancel", null);
         adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences.Editor editor;
-
-                editor = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE).edit();
-                editor.putString("name", input.getText().toString());
-                editor.putInt("idName", 22);
-                editor.apply();
-                owner = findViewById(R.id.owner);
-                owner.setText("Owner: "+prefs.getString("name","Mr. NoName"));
+                if(input.getText().toString().equals("")){
+                    Toast.makeText(MainActivity.this, "Enter name.", Toast.LENGTH_SHORT).show();
+                    owner = findViewById(R.id.owner);
+                    owner.setText("Mr. NoName");
+                }else {
+                    SharedPreferences.Editor editor;
+                    editor = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE).edit();
+                    editor.putString("name", input.getText().toString());
+                    editor.putInt("idName", 22);
+                    editor.apply();
+                    owner = findViewById(R.id.owner);
+                    owner.setText("Owner: " + prefs.getString("name", "Mr. NoName"));
+                }
             }});
         input.setHint("name");
         adb.show();
@@ -87,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
-        if(prefs.getString("name", "Mr. NoName").equals("Mr. NoName")){
-            setOwnerName();
-        }
         owner = (TextView) findViewById(R.id.owner);
         owner.setText("Owner: "+prefs.getString("name","Mr. NoName"));
 
@@ -105,15 +105,12 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
 
         }else {
-
-
             Type listType = new TypeToken<List<Player>>(){}.getType();
             List<Player> tmp = gson.fromJson(jsonString, listType);
             ((PlayerList) this.getApplication()).setList(tmp);
         }
 
-
-    database = ((PlayerList) this.getApplication());
+        database = ((PlayerList) this.getApplication());
         //check if empty, and make toast
         if(database.getList().isEmpty()){
             Toast.makeText(MainActivity.this, "Please add a player.", Toast.LENGTH_SHORT).show();
