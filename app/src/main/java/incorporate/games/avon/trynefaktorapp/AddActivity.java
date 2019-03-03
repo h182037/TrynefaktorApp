@@ -104,6 +104,7 @@ public class AddActivity extends AppCompatActivity {
         nameIN = (EditText) findViewById(R.id.nameInput);
         Button btnCamera = (Button)findViewById(R.id.btnCamera);
 
+        //Creates and starts intent to choose and fetch image from Gallery
         getPic.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -111,12 +112,13 @@ public class AddActivity extends AppCompatActivity {
                 if(nameIN.getText().toString().equals("")){
                     Toast.makeText(AddActivity.this, "Please input name, thank you.", Toast.LENGTH_SHORT).show();
                 }else {
+                    //Using content-provider MediaStore.
                     Intent i = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(i, 3);
                 }
             }
         });
-
+        //Runs method to take a new picture.
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +131,8 @@ public class AddActivity extends AppCompatActivity {
         });
     }
 
-    // result of getting picture from gallery
+    //Callback for activityresult. Is called when intent for gallery has returned a result
+    //For this purpose it is used to fetch the pictureURI from gallery.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -156,7 +159,8 @@ public class AddActivity extends AppCompatActivity {
         }
 
     }
-
+    //Sets a confirm button to make sure user is happy with picture and name
+    //then creates a player, appends it to list of players, and updates the stored list in preferences.
     private void confirmPicture(final Uri selectedImage) {
         pic.setImageURI(selectedImage);
         final Button myButton = new Button(this);

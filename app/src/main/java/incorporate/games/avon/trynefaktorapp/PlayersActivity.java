@@ -81,11 +81,15 @@ public class PlayersActivity extends AppCompatActivity {
 
 
         playerListView = (ListView) findViewById(R.id.playerView);
+
         final List<Player> playerList = ((PlayerList) this.getApplication()).getList();
+        //"inserting" list of players into listView
         arrayAdapter = new PlayerAdapter(
                 this,
                 playerList);
+        //sets our custom adapter for the view
         playerListView.setAdapter(arrayAdapter);
+        //Making an option to delete players from the list.
         playerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             // Making items removable by clicken them in the view
             @Override
@@ -101,9 +105,11 @@ public class PlayersActivity extends AppCompatActivity {
                         if(!playerList.get(positionToRemove).getFromGallery()){
                             getApplicationContext().getContentResolver().delete(Uri.parse(playerList.get(positionToRemove).getPhoto()),null,null);
                         }
-
+                        //removing player from application list.
                         playerList.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
+
+                        //updating preferences file with new altered list.
                         Gson gson = new Gson();
                         SharedPreferences prefs = getSharedPreferences("MyPrefsFile5", MODE_PRIVATE);
                         ((PlayerList) getApplication()).setList(playerList);
@@ -111,7 +117,7 @@ public class PlayersActivity extends AppCompatActivity {
 
                         SharedPreferences.Editor editor = prefs.edit();
                         editor.putString("offline", jsonString2);
-                        editor.commit();
+                        editor.apply();
 
                     }});
                 adb.show();
@@ -119,12 +125,12 @@ public class PlayersActivity extends AppCompatActivity {
         });
 
     }
-
+    //Navigate to QuizActivity
     public void goToQuiz(View v){
         Intent intent = new Intent(PlayersActivity.this,QuizActivity.class);
         startActivity(intent);
     }
-
+    //Navigate to AddActivity
     public void goToAdd(View v){
         Intent intent = new Intent(PlayersActivity.this, AddActivity.class);
         startActivity(intent);

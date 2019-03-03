@@ -109,8 +109,10 @@ public class QuizActivity extends AppCompatActivity {
             Intent intent = new Intent(QuizActivity.this, MainActivity.class);
             startActivity(intent);
         }
+        //Sets imageView to show first first image in list.
         img.setImageURI(Uri.parse(playerList.get(i).getPhoto()));
 
+        //Image rotation buttons left and right.
         RL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +128,7 @@ public class QuizActivity extends AppCompatActivity {
 
 
     }
-
+    //Navigate to MainActivity
     public void goToMain(View v){
         Intent returnIntent = new Intent(QuizActivity.this, MainActivity.class);
         startActivity(returnIntent);
@@ -147,7 +149,7 @@ public class QuizActivity extends AppCompatActivity {
         }else{
             i++;
         }
-
+        //Sets imageview to show next picture
         img.setImageURI(Uri.parse(playerList.get(i).getPhoto()));
 
     }

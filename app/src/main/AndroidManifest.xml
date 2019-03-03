@@ -24,7 +24,6 @@
         <activity android:name=".PlayersActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".QuizActivity"></activity>
-        <activity android:name=".QuizActivityTest" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
