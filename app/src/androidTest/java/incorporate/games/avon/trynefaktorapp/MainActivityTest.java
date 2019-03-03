@@ -31,18 +31,18 @@ public class MainActivityTest {
     public ActivityTestRule<MainActivity> mainActivityActivityTestRule =new ActivityTestRule<MainActivity>(MainActivity.class);
 
     private String owner1 = "sindre";
-    private String owner2 = "Owner: Sindre";
+    private String owner2 = "Owner: sindre";
 
     @Before
     public void setUp() throws Exception {
+
     }
 
     @Test
     public void testUserInput(){
-
         Espresso.openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
-        //onView(withId(R.id.pref)).perform(click());
-       Espresso.onView(withText(R.string.app_name)).perform(click());
+//  onView(withId(R.id.pref)).perform(click());
+        Espresso.onView(withText(R.string.app_name)).perform(click());
 
         onView(withHint("name")).inRoot(isDialog()) // <---
                 .check(matches(isDisplayed()))
@@ -51,10 +51,6 @@ public class MainActivityTest {
         onView(withText("Ok")).inRoot(isDialog()) // <---
                 .check(matches(isDisplayed()))
                 .perform(click());
-
-
-
-
 
         onView(withId(R.id.owner)).check(matches(withText(owner2)));
     }

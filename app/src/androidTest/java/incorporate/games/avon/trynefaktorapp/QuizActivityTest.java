@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class QuizActivityTest  {
     @Rule
-    public ActivityTestRule<QuizActivity> mActivityTestRule = new ActivityTestRule<>(QuizActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     private String guess = "lil";
     private String score1 = "Score: 1/1";
@@ -38,6 +38,10 @@ public class QuizActivityTest  {
     @Test
     public void testQuizInput(){
         //input some text in the edit text
+        Espresso.onView(withId(R.id.goPlayers)).perform(click());
+        Espresso.onView(withId(R.id.goQuiz)).perform(click());
+
+
         Espresso.onView(withId(R.id.guessInput)).perform(typeText(guess));
         //close soft keyboard
          Espresso.closeSoftKeyboard();

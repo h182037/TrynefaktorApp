@@ -12,7 +12,6 @@ public class Player implements Serializable {
     private String name;
     private String photo;
     private boolean fromGallery;
-    private String PhotoTitle;
 
 
     public Player(String name, String photo){
@@ -32,9 +31,6 @@ public class Player implements Serializable {
         this.name = name;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
     public String getName(){
         return name;
     }
@@ -42,11 +38,4 @@ public class Player implements Serializable {
         return photo;
     }
 
-    public String getPhotoTitle() {
-        return PhotoTitle;
-    }
-
-    public void setPhotoTitle(String photoTitle) {
-        PhotoTitle = photoTitle;
-    }
 }
